@@ -120,10 +120,19 @@ const GEO_LOOKUP = [
 ];
 
 // ─── Geo-tag an article ───────────────────────────────────────────────────────
+// Use word-boundary matching to prevent "iran" matching inside "ukraine", etc.
+function wordMatch(text, keyword) {
+  // For multi-word keywords, a simple includes() is safe (no single-char ambiguity).
+  // For single-word keywords, require non-alphanumeric boundaries.
+  if (keyword.includes(' ')) return text.includes(keyword);
+  const re = new RegExp(`(?<![a-z])${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![a-z])`);
+  return re.test(text);
+}
+
 function geoTag(title, description, fallback) {
   const text = `${title} ${description || ''}`.toLowerCase();
   for (const entry of GEO_LOOKUP) {
-    if (entry.names.some(name => text.includes(name))) {
+    if (entry.names.some(name => wordMatch(text, name))) {
       const jitter = () => (Math.random() - 0.5) * 2;
       return { lat: entry.lat + jitter(), lng: entry.lng + jitter(), region: entry.region };
     }
