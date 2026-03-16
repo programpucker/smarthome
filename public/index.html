@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GLOBAL INTEL — News Globe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Scanline overlay -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- ── Top Bar ── -->
+  <header class="top-bar">
+    <div class="top-bar__left">
+      <span class="logo-mark">◈</span>
+      <span class="logo-text">GLOBAL<span class="accent-orange">INTEL</span></span>
+      <span class="divider">|</span>
+      <span class="subtitle">LIVE NEWS OPERATIONS</span>
+    </div>
+    <div class="top-bar__center">
+      <div class="filter-group">
+        <label class="filter-label">REGION</label>
+        <select id="filter-region" class="filter-select">
+          <option value="all">ALL REGIONS</option>
+          <option value="Americas">AMERICAS</option>
+          <option value="Europe">EUROPE</option>
+          <option value="Middle East">MIDDLE EAST</option>
+          <option value="Africa">AFRICA</option>
+          <option value="Asia Pacific">ASIA PACIFIC</option>
+          <option value="Global">GLOBAL</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">SOURCE</label>
+        <select id="filter-source" class="filter-select">
+          <option value="all">ALL SOURCES</option>
+        </select>
+      </div>
+    </div>
+    <div class="top-bar__right">
+      <div id="live-indicator" class="live-indicator">
+        <span class="live-dot"></span>
+        <span>LIVE</span>
+      </div>
+      <button id="refresh-btn" class="btn-refresh" title="Force refresh">↻ REFRESH</button>
+    </div>
+  </header>
+
+  <!-- ── Main Layout ── -->
+  <main class="main-layout">
+    <!-- Globe -->
+    <div class="globe-container" id="globe-container">
+      <div class="globe-crosshair globe-crosshair--h" aria-hidden="true"></div>
+      <div class="globe-crosshair globe-crosshair--v" aria-hidden="true"></div>
+      <svg id="globe-svg"></svg>
+      <div class="globe-label globe-label--n">90°N</div>
+      <div class="globe-label globe-label--s">90°S</div>
+      <div class="globe-label globe-label--e">180°E</div>
+      <div class="globe-label globe-label--w">180°W</div>
+    </div>
+
+    <!-- News Panel -->
+    <aside class="news-panel" id="news-panel">
+      <div class="panel-header">
+        <span class="panel-title">NEWS FEED</span>
+        <span class="panel-count" id="article-count">— ARTICLES</span>
+      </div>
+      <div class="news-list" id="news-list">
+        <div class="loading-state">
+          <div class="loading-spinner"></div>
+          <span>ACQUIRING SIGNAL...</span>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- ── Status Bar ── -->
+  <footer class="status-bar">
+    <div class="status-item">
+      <span class="status-label">LAST UPDATE</span>
+      <span class="status-value accent-cyan" id="last-update">—</span>
+    </div>
+    <div class="status-sep">|</div>
+    <div class="status-item">
+      <span class="status-label">ARTICLES</span>
+      <span class="status-value accent-orange" id="status-count">0</span>
+    </div>
+    <div class="status-sep">|</div>
+    <div class="status-item">
+      <span class="status-label">SOURCES ACTIVE</span>
+      <span class="status-value accent-green" id="status-sources">—</span>
+    </div>
+    <div class="status-sep">|</div>
+    <div class="status-item">
+      <span class="status-label">NEXT REFRESH IN</span>
+      <span class="status-value" id="next-refresh">5:00</span>
+    </div>
+    <div class="status-right">
+      <span class="status-coords" id="mouse-coords">LAT — LNG —</span>
+    </div>
+  </footer>
+
+  <!-- ── News Popup ── -->
+  <div class="news-popup" id="news-popup" style="display:none;">
+    <div class="popup-header">
+      <span class="popup-source" id="popup-source"></span>
+      <span class="popup-time" id="popup-time"></span>
+      <button class="popup-close" id="popup-close">✕</button>
+    </div>
+    <div class="popup-title" id="popup-title"></div>
+    <div class="popup-region" id="popup-region"></div>
+    <div class="popup-summary" id="popup-summary"></div>
+    <a class="popup-link" id="popup-link" target="_blank" rel="noopener noreferrer">
+      OPEN ARTICLE ↗
+    </a>
+  </div>
+
+  <!-- Scripts (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+  <script src="js/globe.js"></script>
+  <script src="js/news.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

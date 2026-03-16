@@ -1,0 +1,15 @@
+{
+  "name": "global-news-flat-globe",
+  "version": "1.0.0",
+  "description": "Global news visualization on a flat azimuthal globe — Palantir Gotham style",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "rss-parser": "^3.13.0"
+  }
+}
